@@ -29,7 +29,7 @@ function Sidebar() {
     // only get friends when you set the flag at the cometchat dashboard flag is set.
     const usersRequest = new CometChat.UsersRequestBuilder()
       .setLimit(limit)
-      .friendsOnly(false) // true: only loggined friends
+      .friendsOnly(true) // true: only loggined friends
       .build()
 
     usersRequest
@@ -88,7 +88,6 @@ function Sidebar() {
         <CreateIcon />
       </div>
       <div className="sidebar__options">
-        <SidebarOption Icon={InsertCommentIcon} title="Thread" />
         <SidebarOption Icon={AlternateEmailIcon} title="Mentions & Reactions" />
         <SidebarOption Icon={MoreVertIcon} title="More" />
         <hr />
