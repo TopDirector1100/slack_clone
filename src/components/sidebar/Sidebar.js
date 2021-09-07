@@ -19,16 +19,22 @@ function Sidebar() {
   const [dms, setDms] = useState([])
   const history = useHistory()
 
-  const getDirectMessages = () => {
-    const limit = 10
+  // get Direnct Msgs
+  const AllFriends = () => {
+
+    // 100 friends for limit
+    const limit = 100 
+
+    // default setting false,
+    // only get friends when you set the flag at the cometchat dashboard flag is set.
     const usersRequest = new CometChat.UsersRequestBuilder()
       .setLimit(limit)
-      .friendsOnly(true)
+      // .friendsOnly(true)
       .build()
 
     usersRequest
-      .fetchNext()
-      .then((userList) => setDms(userList))
+      .fetchNext() // get next list of users
+      .then((userList) => {setDms(userList); console.log('fetch user list = ', usersRequest);})
       .catch((error) => {
         console.log('User list fetching failed with error:', error)
       })
@@ -64,7 +70,7 @@ function Sidebar() {
     setUser(JSON.parse(data))
 
     getChannels()
-    getDirectMessages()
+    AllFriends()
   }, [])
 
   return (
