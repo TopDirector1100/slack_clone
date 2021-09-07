@@ -29,7 +29,7 @@ function Sidebar() {
     // only get friends when you set the flag at the cometchat dashboard flag is set.
     const usersRequest = new CometChat.UsersRequestBuilder()
       .setLimit(limit)
-      // .friendsOnly(true)
+      .friendsOnly(false) // true: only loggined friends
       .build()
 
     usersRequest
