@@ -7,7 +7,7 @@ import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord'
 import InsertCommentIcon from '@material-ui/icons/InsertComment'
 import AlternateEmailIcon from '@material-ui/icons/AlternateEmail'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
+import { ArrowDropDown, ArrowDropUp, ArrowRight } from '@material-ui/icons'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import AddIcon from '@material-ui/icons/Add'
 import { CometChat } from '@cometchat-pro/chat'
@@ -17,6 +17,7 @@ function Sidebar() {
   const [channels, setChannels] = useState([])
   const [user, setUser] = useState(null)
   const [dms, setDms] = useState([])
+  const [arrowDirection, setDirection] = useState(false)
   const history = useHistory()
 
   // get Direnct Msgs
@@ -34,7 +35,7 @@ function Sidebar() {
 
     usersRequest
       .fetchNext() // get next list of users
-      .then((userList) => {setDms(userList); console.log('fetch user list = ', usersRequest);})
+      .then((userList) => {setDms(userList)})
       .catch((error) => {
         console.log('User list fetching failed with error:', error)
       })
@@ -65,12 +66,18 @@ function Sidebar() {
       .catch((error) => console.log(error.message))
   }
 
+  const updateIcon = () => {
+
+  }
+
   useEffect(() => {
     const data = localStorage.getItem('user')
     setUser(JSON.parse(data))
 
     getChannels()
     AllFriends()
+
+    console.log('sidbar clicked', arrowDirection);
   }, [])
 
   return (
@@ -91,7 +98,7 @@ function Sidebar() {
         <SidebarOption Icon={AlternateEmailIcon} title="Mentions & Reactions" />
         <SidebarOption Icon={MoreVertIcon} title="More" />
         <hr />
-        <SidebarOption Icon={ArrowDropDownIcon} title="Channels" />
+        <SidebarOption collapse Icon={!arrowDirection ? ArrowDropDown : ArrowRight } title="Channels" onClick={() => setDirection(!arrowDirection)}/>
         <hr />
         {channels.map((channel) =>
           channel.type === 'private' ? (
@@ -119,7 +126,7 @@ function Sidebar() {
           addChannelOption
         />
         <hr />
-        <SidebarOption Icon={ArrowDropDownIcon} title="Direct Messages" />
+        <SidebarOption Icon={ArrowDropDown} title="Direct Messages" />
         <hr />
         {dms.map((dm) => (
           <SidebarOption

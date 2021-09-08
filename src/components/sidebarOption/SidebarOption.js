@@ -9,6 +9,7 @@ function SidebarOption({
   addChannelOption,
   user,
   online,
+  collapse
 }) {
   const history = useHistory()
   const selectChannel = () => {
