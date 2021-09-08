@@ -350,57 +350,15 @@ function Channel() {
   }
 
   useEffect(() => {
-    //getChannel(id)
-    const getChannel = (guid) => {
-      CometChat.getGroup(guid)
-        .then((group) => setChannel(group))
-        .catch((error) => {
-          if (error.code === 'ERR_GUID_NOT_FOUND') history.push('/')
-          console.log('Group details fetching failed with exception:', error)
-        })
-    };
-    //getMessages(id)
-    const getMessages = (guid) => {
-      const limit = 50
-  
-      const messagesRequest = new CometChat.MessagesRequestBuilder()
-        .setLimit(limit)
-        .setGUID(guid)
-        .build()
-  
-      messagesRequest
-        .fetchPrevious()
-        .then((msgs) => {
-          setMessages(msgs.filter((m) => m.type === 'text'))
-          scrollToEnd()
-        })
-        .catch((error) =>
-          console.log('Message fetching failed with error:', error)
-        )
-    };
-
-    //getMembers(id)
-    const getMembers = (guid) => {
-      const GUID = guid
-      const limit = 30
-      const groupMemberRequest = new CometChat.GroupMembersRequestBuilder(GUID)
-        .setLimit(limit)
-        .build()
-  
-      groupMemberRequest
-        .fetchNext()
-        .then((groupMembers) => setMembers(groupMembers))
-        .catch((error) => {
-          console.log('Group Member list fetching failed with exception:', error)
-        })
-    };
-    
+    getChannel(id)
+    getMessages(id)
+    getMembers(id)
     listenForMessage(id)
     listenForCall(id)
 
     setCurrentUser(JSON.parse(localStorage.getItem('user')))
   }, [id])
-
+  
   return (
     <div className="channel">
       {calling ? (
