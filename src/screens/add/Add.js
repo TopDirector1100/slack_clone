@@ -27,8 +27,8 @@ function Add() {
     const GUID = data.guid
     const groupName = data.channel
     const groupType = data.privacy
-      ? CometChat.GROUP_TYPE.PUBLIC
-      : CometChat.GROUP_TYPE.PRIVATE
+      ? CometChat.GROUP_TYPE.PRIVATE
+      : CometChat.GROUP_TYPE.PUBLIC
     const password = ''
 
     const group = new CometChat.Group(GUID, groupName, groupType, password)
@@ -83,7 +83,7 @@ function Add() {
           <select
             name="privacy"
             value={privacy}
-            onChange={(e) => setPrivacy(e.target.value === true)}
+            onChange={(e) => setPrivacy(e.target.value === "true" ? true : false)}
             required
           >
             <option value={''}>Select privacy</option>
